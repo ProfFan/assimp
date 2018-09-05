@@ -96,16 +96,16 @@ aiScene* BaseImporter::ReadFile(const Importer* pImp, const std::string& pFile, 
     std::unique_ptr<aiScene> sc(new aiScene());
 
     // dispatch importing
-    try
-    {
+    //try
+    //{
         InternReadFile( pFile, sc.get(), &filter);
 
-    } catch( const std::exception& err )    {
+    // } catch( const std::exception& err )    {
         // extract error description
-        m_ErrorText = err.what();
-        ASSIMP_LOG_ERROR(m_ErrorText);
-        return nullptr;
-    }
+    //    m_ErrorText = err.what();
+    //    ASSIMP_LOG_ERROR(m_ErrorText);
+    //    return nullptr;
+    //}
 
     // return what we gathered from the import.
     return sc.release();
@@ -328,7 +328,7 @@ void BaseImporter::ConvertToUTF8(std::vector<char>& data)
 {
     //ConversionResult result;
     if(data.size() < 8) {
-        throw DeadlyImportError("File is too small");
+        return;//throw DeadlyImportError("File is too small");
     }
 
     // UTF 8 with BOM
@@ -425,7 +425,7 @@ void BaseImporter::TextFileToBuffer(IOStream* stream,
     const size_t fileSize = stream->FileSize();
     if (mode == FORBID_EMPTY) {
         if(!fileSize) {
-            throw DeadlyImportError("File is empty");
+            return; //throw DeadlyImportError("File is empty");
         }
     }
 
@@ -433,7 +433,7 @@ void BaseImporter::TextFileToBuffer(IOStream* stream,
     data.resize(fileSize);
     if(fileSize > 0) {
         if(fileSize != stream->Read( &data[0], 1, fileSize)) {
-            throw DeadlyImportError("File read error");
+            return; //throw DeadlyImportError("File read error");
         }
 
         ConvertToUTF8(data);

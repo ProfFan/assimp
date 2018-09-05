@@ -188,9 +188,9 @@ void GetPostProcessingStepInstanceList(std::vector< BaseProcess* >& out)
 #if (!defined ASSIMP_BUILD_NO_FINDINVALIDDATA_PROCESS)
     out.push_back( new FindInvalidDataProcess());
 #endif
-#if (!defined ASSIMP_BUILD_NO_OPTIMIZEMESHES_PROCESS)
-    out.push_back( new OptimizeMeshesProcess());
-#endif
+// #if (!defined ASSIMP_BUILD_NO_OPTIMIZEMESHES_PROCESS)
+//     out.push_back( new OptimizeMeshesProcess());
+// #endif
 #if (!defined ASSIMP_BUILD_NO_FIXINFACINGNORMALS_PROCESS)
     out.push_back( new FixInfacingNormalsProcess());
 #endif

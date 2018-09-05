@@ -139,8 +139,10 @@ struct Edge {
       } else if (p1.x == p2.x) {
         // Repeat points
         // ASSIMP_CHANGE (aramis_acg)
-        throw std::runtime_error(std::string("repeat points"));
+        //throw std::runtime_error(std::string("repeat points"));
         //assert(false);
+        q = &p1;
+        p = &p2;
       }
     }
 

@@ -106,25 +106,25 @@ void ExportScene3MF( const char*, IOSystem*, const aiScene*, const ExportPropert
 // global array of all export formats which Assimp supports in its current build
 Exporter::ExportFormatEntry gExporters[] =
 {
-#ifndef ASSIMP_BUILD_NO_COLLADA_EXPORTER
-    Exporter::ExportFormatEntry( "collada", "COLLADA - Digital Asset Exchange Schema", "dae", &ExportSceneCollada ),
-#endif
+// #ifndef ASSIMP_BUILD_NO_COLLADA_EXPORTER
+//     Exporter::ExportFormatEntry( "collada", "COLLADA - Digital Asset Exchange Schema", "dae", &ExportSceneCollada ),
+// #endif
 
-#ifndef ASSIMP_BUILD_NO_X_EXPORTER
-    Exporter::ExportFormatEntry( "x", "X Files", "x", &ExportSceneXFile,
-        aiProcess_MakeLeftHanded | aiProcess_FlipWindingOrder | aiProcess_FlipUVs ),
-#endif
+// #ifndef ASSIMP_BUILD_NO_X_EXPORTER
+//     Exporter::ExportFormatEntry( "x", "X Files", "x", &ExportSceneXFile,
+//         aiProcess_MakeLeftHanded | aiProcess_FlipWindingOrder | aiProcess_FlipUVs ),
+// #endif
 
 #ifndef ASSIMP_BUILD_NO_STEP_EXPORTER
     Exporter::ExportFormatEntry( "stp", "Step Files", "stp", &ExportSceneStep, 0 ),
 #endif
 
-#ifndef ASSIMP_BUILD_NO_OBJ_EXPORTER
-    Exporter::ExportFormatEntry( "obj", "Wavefront OBJ format", "obj", &ExportSceneObj,
-        aiProcess_GenSmoothNormals /*| aiProcess_PreTransformVertices */ ),
-    Exporter::ExportFormatEntry( "objnomtl", "Wavefront OBJ format without material file", "obj", &ExportSceneObjNoMtl,
-        aiProcess_GenSmoothNormals /*| aiProcess_PreTransformVertices */ ),
-#endif
+// #ifndef ASSIMP_BUILD_NO_OBJ_EXPORTER
+//     Exporter::ExportFormatEntry( "obj", "Wavefront OBJ format", "obj", &ExportSceneObj,
+//         aiProcess_GenSmoothNormals /*| aiProcess_PreTransformVertices */ ),
+//     Exporter::ExportFormatEntry( "objnomtl", "Wavefront OBJ format without material file", "obj", &ExportSceneObjNoMtl,
+//         aiProcess_GenSmoothNormals /*| aiProcess_PreTransformVertices */ ),
+// #endif
 
 #ifndef ASSIMP_BUILD_NO_STL_EXPORTER
     Exporter::ExportFormatEntry( "stl", "Stereolithography", "stl" , &ExportSceneSTL,
@@ -135,51 +135,51 @@ Exporter::ExportFormatEntry gExporters[] =
     ),
 #endif
 
-#ifndef ASSIMP_BUILD_NO_PLY_EXPORTER
-    Exporter::ExportFormatEntry( "ply", "Stanford Polygon Library", "ply" , &ExportScenePly,
-        aiProcess_PreTransformVertices
-    ),
-    Exporter::ExportFormatEntry( "plyb", "Stanford Polygon Library (binary)", "ply", &ExportScenePlyBinary,
-        aiProcess_PreTransformVertices
-    ),
-#endif
+// #ifndef ASSIMP_BUILD_NO_PLY_EXPORTER
+//     Exporter::ExportFormatEntry( "ply", "Stanford Polygon Library", "ply" , &ExportScenePly,
+//         aiProcess_PreTransformVertices
+//     ),
+//     Exporter::ExportFormatEntry( "plyb", "Stanford Polygon Library (binary)", "ply", &ExportScenePlyBinary,
+//         aiProcess_PreTransformVertices
+//     ),
+// #endif
 
-#ifndef ASSIMP_BUILD_NO_3DS_EXPORTER
-    Exporter::ExportFormatEntry( "3ds", "Autodesk 3DS (legacy)", "3ds" , &ExportScene3DS,
-        aiProcess_Triangulate | aiProcess_SortByPType | aiProcess_JoinIdenticalVertices ),
-#endif
+// #ifndef ASSIMP_BUILD_NO_3DS_EXPORTER
+//     Exporter::ExportFormatEntry( "3ds", "Autodesk 3DS (legacy)", "3ds" , &ExportScene3DS,
+//         aiProcess_Triangulate | aiProcess_SortByPType | aiProcess_JoinIdenticalVertices ),
+// #endif
 
-#ifndef ASSIMP_BUILD_NO_GLTF_EXPORTER
-    Exporter::ExportFormatEntry( "gltf2", "GL Transmission Format v. 2", "gltf", &ExportSceneGLTF2,
-        aiProcess_JoinIdenticalVertices | aiProcess_Triangulate | aiProcess_SortByPType ),
-    Exporter::ExportFormatEntry( "glb2", "GL Transmission Format v. 2 (binary)", "glb", &ExportSceneGLB2,
-        aiProcess_JoinIdenticalVertices | aiProcess_Triangulate | aiProcess_SortByPType ),
-    Exporter::ExportFormatEntry( "gltf", "GL Transmission Format", "gltf", &ExportSceneGLTF,
-        aiProcess_JoinIdenticalVertices | aiProcess_Triangulate | aiProcess_SortByPType ),
-    Exporter::ExportFormatEntry( "glb", "GL Transmission Format (binary)", "glb", &ExportSceneGLB,
-        aiProcess_JoinIdenticalVertices | aiProcess_Triangulate | aiProcess_SortByPType ),
-#endif
+// #ifndef ASSIMP_BUILD_NO_GLTF_EXPORTER
+//     Exporter::ExportFormatEntry( "gltf2", "GL Transmission Format v. 2", "gltf", &ExportSceneGLTF2,
+//         aiProcess_JoinIdenticalVertices | aiProcess_Triangulate | aiProcess_SortByPType ),
+//     Exporter::ExportFormatEntry( "glb2", "GL Transmission Format v. 2 (binary)", "glb", &ExportSceneGLB2,
+//         aiProcess_JoinIdenticalVertices | aiProcess_Triangulate | aiProcess_SortByPType ),
+//     Exporter::ExportFormatEntry( "gltf", "GL Transmission Format", "gltf", &ExportSceneGLTF,
+//         aiProcess_JoinIdenticalVertices | aiProcess_Triangulate | aiProcess_SortByPType ),
+//     Exporter::ExportFormatEntry( "glb", "GL Transmission Format (binary)", "glb", &ExportSceneGLB,
+//         aiProcess_JoinIdenticalVertices | aiProcess_Triangulate | aiProcess_SortByPType ),
+// #endif
 
-#ifndef ASSIMP_BUILD_NO_ASSBIN_EXPORTER
-    Exporter::ExportFormatEntry( "assbin", "Assimp Binary", "assbin" , &ExportSceneAssbin, 0 ),
-#endif
+// #ifndef ASSIMP_BUILD_NO_ASSBIN_EXPORTER
+//     Exporter::ExportFormatEntry( "assbin", "Assimp Binary", "assbin" , &ExportSceneAssbin, 0 ),
+// #endif
 
-#ifndef ASSIMP_BUILD_NO_ASSXML_EXPORTER
-    Exporter::ExportFormatEntry( "assxml", "Assxml Document", "assxml" , &ExportSceneAssxml, 0 ),
-#endif
+// #ifndef ASSIMP_BUILD_NO_ASSXML_EXPORTER
+//     Exporter::ExportFormatEntry( "assxml", "Assxml Document", "assxml" , &ExportSceneAssxml, 0 ),
+// #endif
 
-#ifndef ASSIMP_BUILD_NO_X3D_EXPORTER
-    Exporter::ExportFormatEntry( "x3d", "Extensible 3D", "x3d" , &ExportSceneX3D, 0 ),
-#endif
+// #ifndef ASSIMP_BUILD_NO_X3D_EXPORTER
+//     Exporter::ExportFormatEntry( "x3d", "Extensible 3D", "x3d" , &ExportSceneX3D, 0 ),
+// #endif
 
-#ifndef ASSIMP_BUILD_NO_FBX_EXPORTER
-    Exporter::ExportFormatEntry( "fbx", "Autodesk FBX (binary)", "fbx", &ExportSceneFBX, 0 ),
-    Exporter::ExportFormatEntry( "fbxa", "Autodesk FBX (ascii)", "fbx", &ExportSceneFBXA, 0 ),
-#endif
+// #ifndef ASSIMP_BUILD_NO_FBX_EXPORTER
+//     Exporter::ExportFormatEntry( "fbx", "Autodesk FBX (binary)", "fbx", &ExportSceneFBX, 0 ),
+//     Exporter::ExportFormatEntry( "fbxa", "Autodesk FBX (ascii)", "fbx", &ExportSceneFBXA, 0 ),
+// #endif
 
-#ifndef ASSIMP_BUILD_NO_3MF_EXPORTER
-    Exporter::ExportFormatEntry( "3mf", "The 3MF-File-Format", "3mf", &ExportScene3MF, 0 )
-#endif
+// #ifndef ASSIMP_BUILD_NO_3MF_EXPORTER
+//     Exporter::ExportFormatEntry( "3mf", "The 3MF-File-Format", "3mf", &ExportScene3MF, 0 )
+// #endif
 };
 
 #define ASSIMP_NUM_EXPORTERS (sizeof(gExporters)/sizeof(gExporters[0]))
@@ -311,7 +311,7 @@ bool IsVerboseFormat(const aiScene* pScene) {
 // ------------------------------------------------------------------------------------------------
 aiReturn Exporter::Export( const aiScene* pScene, const char* pFormatId, const char* pPath,
         unsigned int pPreprocessing, const ExportProperties* pProperties) {
-    ASSIMP_BEGIN_EXCEPTION_REGION();
+    //ASSIMP_BEGIN_EXCEPTION_REGION();
 
     // when they create scenes from scratch, users will likely create them not in verbose
     // format. They will likely not be aware that there is a flag in the scene to indicate
@@ -323,7 +323,7 @@ aiReturn Exporter::Export( const aiScene* pScene, const char* pFormatId, const c
     for (size_t i = 0; i < pimpl->mExporters.size(); ++i) {
         const Exporter::ExportFormatEntry& exp = pimpl->mExporters[i];
         if (!strcmp(exp.mDescription.id,pFormatId)) {
-            try {
+            //try {
                 // Always create a full copy of the scene. We might optimize this one day,
                 // but for now it is the most pragmatic way.
                 aiScene* scenecopy_tmp = NULL;
@@ -408,12 +408,13 @@ aiReturn Exporter::Export( const aiScene* pScene, const char* pFormatId, const c
                         BaseProcess* const p = pimpl->mPostProcessingSteps[a];
 
                         if (p->IsActive(pp)
-                            && !dynamic_cast<FlipUVsProcess*>(p)
-                            && !dynamic_cast<FlipWindingOrderProcess*>(p)
-                            && !dynamic_cast<MakeLeftHandedProcess*>(p)) {
-                            if (dynamic_cast<PretransformVertices*>(p) && exportPointCloud) {
-                                continue;
-                            }
+                            //&& !dynamic_cast<FlipUVsProcess*>(p)
+                            //&& !dynamic_cast<FlipWindingOrderProcess*>(p)
+                            //&& !dynamic_cast<MakeLeftHandedProcess*>(p)
+                            ){
+                            //if (dynamic_cast<PretransformVertices*>(p) && exportPointCloud) {
+                            //    continue;
+                            //}
                             p->Execute(scenecopy.get());
                         }
                     }
@@ -430,16 +431,16 @@ aiReturn Exporter::Export( const aiScene* pScene, const char* pFormatId, const c
 
                 ExportProperties emptyProperties;  // Never pass NULL ExportProperties so Exporters don't have to worry.
                 exp.mExportFunction(pPath,pimpl->mIOSystem.get(),scenecopy.get(), pProperties ? pProperties : &emptyProperties);
-            } catch (DeadlyExportError& err) {
-                pimpl->mError = err.what();
-                return AI_FAILURE;
-            }
+            //} catch (DeadlyExportError& err) {
+            //    pimpl->mError = err.what();
+            //    return AI_FAILURE;
+            //}
             return AI_SUCCESS;
         }
     }
 
     pimpl->mError = std::string("Found no exporter to handle this file format: ") + pFormatId;
-    ASSIMP_END_EXCEPTION_REGION(aiReturn);
+    //ASSIMP_END_EXCEPTION_REGION(aiReturn);
 
     return AI_FAILURE;
 }

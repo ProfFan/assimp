@@ -196,7 +196,7 @@ public:
     void IncPtr(intptr_t plus)    {
         current += plus;
         if (current > limit) {
-            throw DeadlyImportError("End of file or read limit was reached");
+            // throw DeadlyImportError("End of file or read limit was reached");
         }
     }
 
@@ -215,7 +215,7 @@ public:
     void SetPtr(int8_t* p)  {
         current = p;
         if (current > limit || current < buffer) {
-            throw DeadlyImportError("End of file or read limit was reached");
+            // throw DeadlyImportError("End of file or read limit was reached");
         }
     }
 
@@ -256,7 +256,7 @@ public:
 
         limit = buffer + _limit;
         if (limit > end) {
-            throw DeadlyImportError("StreamReader: Invalid read limit");
+            // throw DeadlyImportError("StreamReader: Invalid read limit");
         }
         return prev;
     }
@@ -288,7 +288,7 @@ public:
     template <typename T>
     T Get() {
         if ( current + sizeof(T) > limit) {
-            throw DeadlyImportError("End of file or stream limit was reached");
+            // throw DeadlyImportError("End of file or stream limit was reached");
         }
 
         T f;
@@ -308,12 +308,12 @@ private:
             // no one bothers changing the error message, this message here
             // is passed down to the caller and 'unable to open file'
             // simply describes best what happened.
-            throw DeadlyImportError("StreamReader: Unable to open file");
+            // throw DeadlyImportError("StreamReader: Unable to open file");
         }
 
         const size_t s = stream->FileSize() - stream->Tell();
         if (!s) {
-            throw DeadlyImportError("StreamReader: File is empty or EOF is already reached");
+            // throw DeadlyImportError("StreamReader: File is empty or EOF is already reached");
         }
 
         current = buffer = new int8_t[s];

@@ -308,7 +308,7 @@ void OptimizeGraphProcess::Execute( aiScene* pScene) {
 
     if (dummy_root->mNumChildren == 0) {
         pScene->mRootNode = NULL;
-        throw DeadlyImportError("After optimizing the scene graph, no data remains");
+        return; //throw DeadlyImportError("After optimizing the scene graph, no data remains");
     }
 
     if (dummy_root->mNumChildren > 1) {

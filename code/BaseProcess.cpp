@@ -77,20 +77,20 @@ void BaseProcess::ExecuteOnScene( Importer* pImp)
     SetupProperties( pImp );
 
     // catch exceptions thrown inside the PostProcess-Step
-    try
-    {
+    // try
+    // {
         Execute(pImp->Pimpl()->mScene);
 
-    } catch( const std::exception& err )    {
+    // } catch( const std::exception& err )    {
 
-        // extract error description
-        pImp->Pimpl()->mErrorString = err.what();
-        ASSIMP_LOG_ERROR(pImp->Pimpl()->mErrorString);
+    //     // extract error description
+    //     pImp->Pimpl()->mErrorString = err.what();
+    //     ASSIMP_LOG_ERROR(pImp->Pimpl()->mErrorString);
 
-        // and kill the partially imported data
-        delete pImp->Pimpl()->mScene;
-        pImp->Pimpl()->mScene = NULL;
-    }
+    //     // and kill the partially imported data
+    //     delete pImp->Pimpl()->mScene;
+    //     pImp->Pimpl()->mScene = NULL;
+    // }
 }
 
 // ------------------------------------------------------------------------------------------------

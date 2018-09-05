@@ -532,9 +532,10 @@ aiReturn aiMaterial::AddBinaryProperty (const void* pInput,
         mNumAllocated *= 2;
 
         aiMaterialProperty** ppTemp;
-        try {
-            ppTemp = new aiMaterialProperty*[mNumAllocated];
-        } catch (std::bad_alloc&) {
+        //try {
+        ppTemp = new aiMaterialProperty*[mNumAllocated];
+        //} catch (std::bad_alloc&)
+        if (!ppTemp) {
             delete pcNew;
             return AI_OUTOFMEMORY;
         }

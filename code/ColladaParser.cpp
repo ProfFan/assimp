@@ -87,20 +87,20 @@ ColladaParser::ColladaParser( IOSystem* pIOHandler, const std::string& pFile)
 {
     // validate io-handler instance
     if (nullptr == pIOHandler ) {
-        throw DeadlyImportError("IOSystem is NULL." );
+        return ;//throw DeadlyImportError("IOSystem is NULL." );
     }
 
     // open the file
     std::unique_ptr<IOStream> file( pIOHandler->Open(pFile ) );
     if (file.get() == nullptr) {
-        throw DeadlyImportError( "Failed to open file " + pFile + "." );
+        return ;//throw DeadlyImportError( "Failed to open file " + pFile + "." );
     }
 
     // generate a XML reader for it
     std::unique_ptr<CIrrXML_IOStreamReader> mIOWrapper(new CIrrXML_IOStreamReader(file.get()));
     mReader = irr::io::createIrrXMLReader( mIOWrapper.get());
     if (!mReader) {
-        ThrowException("Collada: Unable to open file.");
+        return ;//ThrowException("Collada: Unable to open file.");
     }
 
     // start reading
@@ -272,7 +272,7 @@ void ColladaParser::ReadAssetInfo()
         else if( mReader->getNodeType() == irr::io::EXN_ELEMENT_END)
         {
             if( strcmp( mReader->getNodeName(), "asset") != 0)
-                ThrowException( "Expected end of <asset> element.");
+                return ;//ThrowException( "Expected end of <asset> element.");
 
             break;
         }
@@ -318,7 +318,7 @@ void ColladaParser::ReadAnimationClipLibrary()
 							{
 								const char* url = mReader->getAttributeValue(indexUrl);
 								if (url[0] != '#')
-									ThrowException("Unknown reference format");
+									return ;//ThrowException("Unknown reference format");
 
 								url++;
 
@@ -334,7 +334,7 @@ void ColladaParser::ReadAnimationClipLibrary()
 					else if (mReader->getNodeType() == irr::io::EXN_ELEMENT_END)
 					{
 						if (strcmp(mReader->getNodeName(), "animation_clip") != 0)
-							ThrowException("Expected end of <animation_clip> element.");
+							return ;//ThrowException("Expected end of <animation_clip> element.");
 
 						break;
 					}
@@ -354,7 +354,7 @@ void ColladaParser::ReadAnimationClipLibrary()
 		else if (mReader->getNodeType() == irr::io::EXN_ELEMENT_END)
 		{
 			if (strcmp(mReader->getNodeName(), "library_animation_clips") != 0)
-				ThrowException("Expected end of <library_animation_clips> element.");
+				return ;//ThrowException("Expected end of <library_animation_clips> element.");
 
 			break;
 		}
@@ -443,7 +443,7 @@ void ColladaParser::ReadAnimationLibrary()
         else if( mReader->getNodeType() == irr::io::EXN_ELEMENT_END)
         {
             if( strcmp( mReader->getNodeName(), "library_animations") != 0)
-                ThrowException( "Expected end of <library_animations> element.");
+                return ;//ThrowException( "Expected end of <library_animations> element.");
 
             break;
         }
@@ -539,7 +539,7 @@ void ColladaParser::ReadAnimation( Collada::Animation* pParent)
         else if( mReader->getNodeType() == irr::io::EXN_ELEMENT_END)
         {
             if( strcmp( mReader->getNodeName(), "animation") != 0)
-                ThrowException( "Expected end of <animation> element.");
+                return ;//ThrowException( "Expected end of <animation> element.");
 
             break;
         }
@@ -595,7 +595,7 @@ void ColladaParser::ReadAnimationSampler( Collada::AnimationChannel& pChannel)
                 int indexSource = GetAttribute( "source");
                 const char* source = mReader->getAttributeValue( indexSource);
                 if( source[0] != '#')
-                    ThrowException( "Unsupported URL format");
+                    return ;//ThrowException( "Unsupported URL format");
                 source++;
 
                 if( strcmp( semantic, "INPUT") == 0)
@@ -621,7 +621,7 @@ void ColladaParser::ReadAnimationSampler( Collada::AnimationChannel& pChannel)
         else if( mReader->getNodeType() == irr::io::EXN_ELEMENT_END)
         {
             if( strcmp( mReader->getNodeName(), "sampler") != 0)
-                ThrowException( "Expected end of <sampler> element.");
+                return ;//ThrowException( "Expected end of <sampler> element.");
 
             break;
         }
@@ -659,7 +659,7 @@ void ColladaParser::ReadControllerLibrary()
         else if( mReader->getNodeType() == irr::io::EXN_ELEMENT_END)
         {
             if( strcmp( mReader->getNodeName(), "library_controllers") != 0)
-                ThrowException( "Expected end of <library_controllers> element.");
+                return ;//ThrowException( "Expected end of <library_controllers> element.");
 
             break;
         }
@@ -748,7 +748,7 @@ void ColladaParser::ReadController( Collada::Controller& pController)
                         if( strcmp( mReader->getNodeName(), "targets") == 0)
                             break;
                         else
-                            ThrowException( "Expected end of <targets> element.");
+                            return ;//ThrowException( "Expected end of <targets> element.");
                     }
                 }
             }
@@ -763,7 +763,7 @@ void ColladaParser::ReadController( Collada::Controller& pController)
             if( strcmp( mReader->getNodeName(), "controller") == 0)
                 break;
             else if( strcmp( mReader->getNodeName(), "skin") != 0 && strcmp( mReader->getNodeName(), "morph") != 0)
-                ThrowException( "Expected end of <controller> element.");
+                return ;//ThrowException( "Expected end of <controller> element.");
         }
     }
 }
@@ -786,7 +786,7 @@ void ColladaParser::ReadControllerJoints( Collada::Controller& pController)
 
                 // local URLS always start with a '#'. We don't support global URLs
                 if( attrSource[0] != '#')
-                    ThrowException( format() << "Unsupported URL format in \"" << attrSource << "\" in source attribute of <joints> data <input> element" );
+                    return ;//ThrowException( format() << "Unsupported URL format in \"" << attrSource << "\" in source attribute of <joints> data <input> element" );
                 attrSource++;
 
                 // parse source URL to corresponding source
@@ -795,7 +795,7 @@ void ColladaParser::ReadControllerJoints( Collada::Controller& pController)
                 else if( strcmp( attrSemantic, "INV_BIND_MATRIX") == 0)
                     pController.mJointOffsetMatrixSource = attrSource;
                 else
-                    ThrowException( format() << "Unknown semantic \"" << attrSemantic << "\" in <joints> data <input> element" );
+                    return ;//ThrowException( format() << "Unknown semantic \"" << attrSemantic << "\" in <joints> data <input> element" );
 
                 // skip inner data, if present
                 if( !mReader->isEmptyElement())
@@ -810,7 +810,7 @@ void ColladaParser::ReadControllerJoints( Collada::Controller& pController)
         else if( mReader->getNodeType() == irr::io::EXN_ELEMENT_END)
         {
             if( strcmp( mReader->getNodeName(), "joints") != 0)
-                ThrowException( "Expected end of <joints> element.");
+                return ;//ThrowException( "Expected end of <joints> element.");
 
             break;
         }
@@ -845,7 +845,7 @@ void ColladaParser::ReadControllerWeights( Collada::Controller& pController)
 
                 // local URLS always start with a '#'. We don't support global URLs
                 if( attrSource[0] != '#')
-                    ThrowException( format() << "Unsupported URL format in \"" << attrSource << "\" in source attribute of <vertex_weights> data <input> element" );
+                    return ;//ThrowException( format() << "Unsupported URL format in \"" << attrSource << "\" in source attribute of <vertex_weights> data <input> element" );
                 channel.mAccessor = attrSource + 1;
 
                 // parse source URL to corresponding source
@@ -2978,7 +2978,8 @@ void ColladaParser::ReadScene()
 // Aborts the file reading with an exception
 AI_WONT_RETURN void ColladaParser::ThrowException( const std::string& pError) const
 {
-    throw DeadlyImportError( format() << "Collada: " << mFileName << " - " << pError );
+    return;
+    //throw DeadlyImportError( format() << "Collada: " << mFileName << " - " << pError );
 }
 void ColladaParser::ReportWarning(const char* msg,...)
 {

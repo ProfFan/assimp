@@ -83,7 +83,7 @@ void GenFaceNormalsProcess::Execute( aiScene* pScene) {
     ASSIMP_LOG_DEBUG("GenFaceNormalsProcess begin");
 
     if (pScene->mFlags & AI_SCENE_FLAGS_NON_VERBOSE_FORMAT) {
-        throw DeadlyImportError("Post-processing order mismatch: expecting pseudo-indexed (\"verbose\") vertices here");
+        return;//throw DeadlyImportError("Post-processing order mismatch: expecting pseudo-indexed (\"verbose\") vertices here");
     }
 
     bool bHas = false;

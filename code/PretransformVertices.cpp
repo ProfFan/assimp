@@ -561,7 +561,7 @@ void PretransformVertices::Execute( aiScene* pScene)
         // If no meshes are referenced in the node graph it is possible that we get no output meshes.
         if (apcOutMeshes.empty()) {
             
-            throw DeadlyImportError("No output meshes: all meshes are orphaned and are not referenced by any nodes");
+            return; //throw DeadlyImportError("No output meshes: all meshes are orphaned and are not referenced by any nodes");
         }
         else
         {

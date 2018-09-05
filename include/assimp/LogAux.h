@@ -58,7 +58,7 @@ public:
     // ------------------------------------------------------------------------------------------------
     static void ThrowException(const std::string& msg)
     {
-        throw DeadlyImportError(Prefix()+msg);
+        // throw DeadlyImportError(Prefix()+msg);
     }
 
     // ------------------------------------------------------------------------------------------------

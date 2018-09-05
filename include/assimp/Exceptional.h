@@ -92,15 +92,15 @@ struct ExceptionSwallower<T*>   {
 template <>
 struct ExceptionSwallower<aiReturn> {
     aiReturn operator ()() const {
-        try {
-            throw;
-        }
-        catch (std::bad_alloc&) {
-            return aiReturn_OUTOFMEMORY;
-        }
-        catch (...) {
+        //try {
+            //throw;
+        //}
+        //catch (std::bad_alloc&) {
+        //    return aiReturn_OUTOFMEMORY;
+        //}
+        //catch (...) {
             return aiReturn_FAILURE;
-        }
+        //}
     }
 };
 
@@ -114,11 +114,9 @@ struct ExceptionSwallower<void> {
 
 #define ASSIMP_BEGIN_EXCEPTION_REGION()\
 {\
-    try {
+    {
 
 #define ASSIMP_END_EXCEPTION_REGION(type)\
-    } catch(...) {\
-        return ExceptionSwallower<type>()();\
     }\
 }
 

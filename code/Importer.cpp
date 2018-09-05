@@ -115,12 +115,12 @@ void* AllocateFromAssimpHeap::operator new ( size_t num_bytes)  {
 }
 
 void* AllocateFromAssimpHeap::operator new ( size_t num_bytes, const std::nothrow_t& ) throw()  {
-    try {
+    //try {
         return AllocateFromAssimpHeap::operator new( num_bytes );
-    }
-    catch( ... )    {
-        return NULL;
-    }
+    //}
+    //catch( ... )    {
+    //    return NULL;
+    //}
 }
 
 void AllocateFromAssimpHeap::operator delete ( void* data)  {
@@ -132,12 +132,12 @@ void* AllocateFromAssimpHeap::operator new[] ( size_t num_bytes)    {
 }
 
 void* AllocateFromAssimpHeap::operator new[] ( size_t num_bytes, const std::nothrow_t& ) throw() {
-    try {
+    //try {
         return AllocateFromAssimpHeap::operator new[]( num_bytes );
-    }
-    catch( ... )    {
-        return NULL;
-    }
+    //}
+    //catch( ... )    {
+    //    return NULL;
+    //}
 }
 
 void AllocateFromAssimpHeap::operator delete[] ( void* data)    {
@@ -203,12 +203,12 @@ Importer::~Importer()
 aiReturn Importer::RegisterPPStep(BaseProcess* pImp)
 {
     ai_assert(NULL != pImp);
-    ASSIMP_BEGIN_EXCEPTION_REGION();
+    //ASSIMP_BEGIN_EXCEPTION_REGION();
 
         pimpl->mPostProcessingSteps.push_back(pImp);
         ASSIMP_LOG_INFO("Registering custom post-processing step");
 
-    ASSIMP_END_EXCEPTION_REGION(aiReturn);
+    //ASSIMP_END_EXCEPTION_REGION(aiReturn);
     return AI_SUCCESS;
 }
 
@@ -217,7 +217,7 @@ aiReturn Importer::RegisterPPStep(BaseProcess* pImp)
 aiReturn Importer::RegisterLoader(BaseImporter* pImp)
 {
     ai_assert(NULL != pImp);
-    ASSIMP_BEGIN_EXCEPTION_REGION();
+    //ASSIMP_BEGIN_EXCEPTION_REGION();
 
     // --------------------------------------------------------------------
     // Check whether we would have two loaders for the same file extension
@@ -242,7 +242,7 @@ aiReturn Importer::RegisterLoader(BaseImporter* pImp)
     // add the loader
     pimpl->mImporter.push_back(pImp);
     ASSIMP_LOG_INFO_F("Registering custom importer for these file extensions: ", baked);
-    ASSIMP_END_EXCEPTION_REGION(aiReturn);
+    //ASSIMP_END_EXCEPTION_REGION(aiReturn);
     return AI_SUCCESS;
 }
 
@@ -255,7 +255,7 @@ aiReturn Importer::UnregisterLoader(BaseImporter* pImp)
         return AI_SUCCESS;
     }
 
-    ASSIMP_BEGIN_EXCEPTION_REGION();
+    //ASSIMP_BEGIN_EXCEPTION_REGION();
     std::vector<BaseImporter*>::iterator it = std::find(pimpl->mImporter.begin(),
         pimpl->mImporter.end(),pImp);
 
@@ -265,7 +265,7 @@ aiReturn Importer::UnregisterLoader(BaseImporter* pImp)
         return AI_SUCCESS;
     }
     ASSIMP_LOG_WARN("Unable to remove custom importer: I can't find you ...");
-    ASSIMP_END_EXCEPTION_REGION(aiReturn);
+    //ASSIMP_END_EXCEPTION_REGION(aiReturn);
     return AI_FAILURE;
 }
 
@@ -571,7 +571,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags)
     WriteLogOpening(pFile);
 
 #ifdef ASSIMP_CATCH_GLOBAL_EXCEPTIONS
-    try
+    //try
 #endif // ! ASSIMP_CATCH_GLOBAL_EXCEPTIONS
     {
         // Check whether this Importer instance has already loaded
@@ -698,20 +698,20 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags)
             profiler->EndRegion("total");
         }
     }
-#ifdef ASSIMP_CATCH_GLOBAL_EXCEPTIONS
-    catch (std::exception &e)
-    {
-#if (defined _MSC_VER) &&   (defined _CPPRTTI)
-        // if we have RTTI get the full name of the exception that occurred
-        pimpl->mErrorString = std::string(typeid( e ).name()) + ": " + e.what();
-#else
-        pimpl->mErrorString = std::string("std::exception: ") + e.what();
-#endif
+// #ifdef ASSIMP_CATCH_GLOBAL_EXCEPTIONS
+//     catch (std::exception &e)
+//     {
+// #if (defined _MSC_VER) &&   (defined _CPPRTTI)
+//         // if we have RTTI get the full name of the exception that occurred
+//         pimpl->mErrorString = std::string(typeid( e ).name()) + ": " + e.what();
+// #else
+//         pimpl->mErrorString = std::string("std::exception: ") + e.what();
+// #endif
 
-        ASSIMP_LOG_ERROR(pimpl->mErrorString);
-        delete pimpl->mScene; pimpl->mScene = NULL;
-    }
-#endif // ! ASSIMP_CATCH_GLOBAL_EXCEPTIONS
+//         ASSIMP_LOG_ERROR(pimpl->mErrorString);
+//         delete pimpl->mScene; pimpl->mScene = NULL;
+//     }
+// #endif // ! ASSIMP_CATCH_GLOBAL_EXCEPTIONS
 
     // either successful or failure - the pointer expresses it anyways
     ASSIMP_END_EXCEPTION_REGION(const aiScene*);

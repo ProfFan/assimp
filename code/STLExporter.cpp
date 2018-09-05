@@ -67,13 +67,13 @@ void ExportSceneSTL(const char* pFile,IOSystem* pIOSystem, const aiScene* pScene
     STLExporter exporter(pFile, pScene, exportPointClouds );
 
     if (exporter.mOutput.fail()) {
-        throw DeadlyExportError("output data creation failed. Most likely the file became too large: " + std::string(pFile));
+        return; //throw DeadlyExportError("output data creation failed. Most likely the file became too large: " + std::string(pFile));
     }
     
     // we're still here - export successfully completed. Write the file.
     std::unique_ptr<IOStream> outfile (pIOSystem->Open(pFile,"wt"));
     if(outfile == NULL) {
-        throw DeadlyExportError("could not open output .stl file: " + std::string(pFile));
+        return; //throw DeadlyExportError("could not open output .stl file: " + std::string(pFile));
     }
 
     outfile->Write( exporter.mOutput.str().c_str(), static_cast<size_t>(exporter.mOutput.tellp()),1);
@@ -86,13 +86,13 @@ void ExportSceneSTLBinary(const char* pFile,IOSystem* pIOSystem, const aiScene* 
     STLExporter exporter(pFile, pScene, exportPointClouds, true);
 
     if (exporter.mOutput.fail()) {
-        throw DeadlyExportError("output data creation failed. Most likely the file became too large: " + std::string(pFile));
+        return; //throw DeadlyExportError("output data creation failed. Most likely the file became too large: " + std::string(pFile));
     }
     
     // we're still here - export successfully completed. Write the file.
     std::unique_ptr<IOStream> outfile (pIOSystem->Open(pFile,"wb"));
     if(outfile == NULL) {
-        throw DeadlyExportError("could not open output .stl file: " + std::string(pFile));
+        return; //throw DeadlyExportError("could not open output .stl file: " + std::string(pFile));
     }
 
     outfile->Write( exporter.mOutput.str().c_str(), static_cast<size_t>(exporter.mOutput.tellp()),1);

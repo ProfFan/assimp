@@ -107,7 +107,7 @@ void ExportSceneStep(const char* pFile,IOSystem* pIOSystem, const aiScene* pScen
     // we're still here - export successfully completed. Write result to the given IOSYstem
     std::unique_ptr<IOStream> outfile (pIOSystem->Open(pFile,"wt"));
     if(outfile == NULL) {
-        throw DeadlyExportError("could not open output .stp file: " + std::string(pFile));
+        return; //throw DeadlyExportError("could not open output .stp file: " + std::string(pFile));
     }
 
     // XXX maybe use a small wrapper around IOStream that behaves like std::stringstream in order to avoid the extra copy.

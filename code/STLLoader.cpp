@@ -183,7 +183,7 @@ void STLImporter::InternReadFile( const std::string& pFile, aiScene* pScene, IOS
 
     // Check whether we can read from the file
     if( file.get() == NULL) {
-        throw DeadlyImportError( "Failed to open STL file " + pFile + ".");
+        return; // throw DeadlyImportError( "Failed to open STL file " + pFile + ".");
     }
 
     fileSize = (unsigned int)file->FileSize();
@@ -209,7 +209,7 @@ void STLImporter::InternReadFile( const std::string& pFile, aiScene* pScene, IOS
     } else if (IsAsciiSTL(mBuffer, fileSize)) {
         LoadASCIIFile( pScene->mRootNode );
     } else {
-        throw DeadlyImportError( "Failed to determine STL storage representation for " + pFile + ".");
+        return; // throw DeadlyImportError( "Failed to determine STL storage representation for " + pFile + ".");
     }
 
     // create a single default material, using a white diffuse color for consistency with
@@ -273,7 +273,7 @@ void STLImporter::LoadASCIIFile( aiNode *root ) {
         // setup the name of the node
         if ((temp = (size_t)(sz-szMe))) {
             if (temp >= MAXLEN) {
-                throw DeadlyImportError( "STL: Node name too long" );
+                return; // throw DeadlyImportError( "STL: Node name too long" );
             }
             std::string name( szMe, temp );
             node->mName.Set( name.c_str() );
@@ -309,7 +309,7 @@ void STLImporter::LoadASCIIFile( aiNode *root ) {
                     ASSIMP_LOG_WARN("STL: a facet normal vector was expected but not found");
                 } else {
                     if (sz[6] == '\0') {
-                        throw DeadlyImportError("STL: unexpected EOF while parsing facet");
+                        return; // throw DeadlyImportError("STL: unexpected EOF while parsing facet");
                     }
                     sz += 7;
                     SkipSpaces(&sz);
@@ -327,7 +327,7 @@ void STLImporter::LoadASCIIFile( aiNode *root ) {
                     ++sz;
                 } else {
                     if (sz[6] == '\0') {
-                        throw DeadlyImportError("STL: unexpected EOF while parsing facet");
+                        return; // throw DeadlyImportError("STL: unexpected EOF while parsing facet");
                     }
                     sz += 7;
                     SkipSpaces(&sz);
@@ -360,11 +360,11 @@ void STLImporter::LoadASCIIFile( aiNode *root ) {
         }
         if (positionBuffer.size() % 3 != 0)    {
             pMesh->mNumFaces = 0;
-            throw DeadlyImportError("STL: Invalid number of vertices");
+            return; // throw DeadlyImportError("STL: Invalid number of vertices");
         }
         if (normalBuffer.size() != positionBuffer.size())    {
             pMesh->mNumFaces = 0;
-            throw DeadlyImportError("Normal buffer size does not match position buffer size");
+            return; // throw DeadlyImportError("Normal buffer size does not match position buffer size");
         }
 
         // only process positionbuffer when filled, else exception when accessing with index operator
@@ -417,7 +417,7 @@ bool STLImporter::LoadBinaryFile()
 
     // skip the first 80 bytes
     if (fileSize < 84) {
-        throw DeadlyImportError("STL: file is too small for the header");
+        return false; // throw DeadlyImportError("STL: file is too small for the header");
     }
     bool bIsMaterialise = false;
 
@@ -449,11 +449,11 @@ bool STLImporter::LoadBinaryFile()
     sz += 4;
 
     if (fileSize < 84 + pMesh->mNumFaces*50) {
-        throw DeadlyImportError("STL: file is too small to hold all facets");
+        return false; // throw DeadlyImportError("STL: file is too small to hold all facets");
     }
 
     if (!pMesh->mNumFaces) {
-        throw DeadlyImportError("STL: file is empty. There are no facets defined");
+        return false; // throw DeadlyImportError("STL: file is empty. There are no facets defined");
     }
 
     pMesh->mNumVertices = pMesh->mNumFaces*3;
