@@ -94,7 +94,7 @@ public:
     template <typename T>
     const T* Get(bool dieOnError = false) {
         const Object* const ob = Get(dieOnError);
-        return ob ? DynamicCast<const T*>(ob) : NULL;
+        return ob ? DynamicCast<const T>(ob) : NULL;
     }
 
     uint64_t ID() const {
@@ -153,8 +153,9 @@ public:
     uint64_t ID() const {
         return id;
     }
+    static const int s_Type = 0;
 
-    virtual int get_Type() const = 0;
+    virtual int get_Type() const { return s_Type; }
     
 protected:
     const Element& element;
@@ -164,6 +165,12 @@ protected:
 
 template <class T>
 T* DynamicCast(Object* p)
+{
+    return (T::s_Type == p->get_Type()) ? static_cast<T*>(p) : NULL;
+}
+
+template <class T>
+T* DynamicCast(const Object* p)
 {
     return (T::s_Type == p->get_Type()) ? static_cast<T*>(p) : NULL;
 }
@@ -819,11 +826,11 @@ public:
     }
 
     const Model* TargetAsModel() const {
-        return DynamicCast<const Model*>(target);
+        return DynamicCast<const Model>(target);
     }
 
     const NodeAttribute* TargetAsNodeAttribute() const {
-        return DynamicCast<const NodeAttribute*>(target);
+        return DynamicCast<const NodeAttribute>(target);
     }
 
     /** Property of Target() that is being animated*/

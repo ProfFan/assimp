@@ -180,7 +180,7 @@ const AnimationCurveMap& AnimationCurveNode::Curves() const
                 continue;
             }
 
-            const AnimationCurve* const anim = DynamicCast<const AnimationCurve*>(ob);
+            const AnimationCurve* const anim = DynamicCast<const AnimationCurve>(ob);
             if(!anim) {
                 DOMWarning("source object for ->AnimationCurveNode link is not an AnimationCurve",&element);
                 continue;
@@ -233,7 +233,7 @@ AnimationCurveNodeList AnimationLayer::Nodes(const char* const * target_prop_whi
             continue;
         }
 
-        const AnimationCurveNode* const anim = DynamicCast<const AnimationCurveNode*>(ob);
+        const AnimationCurveNode* const anim = DynamicCast<const AnimationCurveNode>(ob);
         if(!anim) {
             DOMWarning("source object for ->AnimationLayer link is not an AnimationCurveNode",&element);
             continue;
@@ -284,7 +284,7 @@ AnimationStack::AnimationStack(uint64_t id, const Element& element, const std::s
             continue;
         }
 
-        const AnimationLayer* const anim = DynamicCast<const AnimationLayer*>(ob);
+        const AnimationLayer* const anim = DynamicCast<const AnimationLayer>(ob);
         if(!anim) {
             DOMWarning("source object for ->AnimationStack link is not an AnimationLayer",&element);
             continue;

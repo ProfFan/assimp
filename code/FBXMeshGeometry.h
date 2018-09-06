@@ -64,6 +64,9 @@ public:
     /** Get the Skin attached to this geometry or NULL */
     const Skin* DeformerSkin() const;
 
+    static const int s_Type = 0xD482;
+    virtual int get_Type() const { return s_Type; }
+
 private:
     const Skin* skin;
 };
@@ -125,6 +128,9 @@ public:
     /** Determine the face to which a particular output vertex index belongs.
     *  This mapping is always unique. */
     unsigned int FaceForVertexIndex( unsigned int in_index ) const;
+
+    static const int s_Type = 0x3A30;
+    virtual int get_Type() const { return s_Type; }
 
 private:
     void ReadLayer( const Scope& layer );
