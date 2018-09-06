@@ -97,9 +97,6 @@ public:
         return configKeepHierarchy;
     }
 
-    static const int s_Type = 4;
-    virtual int get_Type() const { return s_Type; }
-
 private:
     // -------------------------------------------------------------------
     // Count the number of nodes

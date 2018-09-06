@@ -88,9 +88,6 @@ public:
     // -------------------------------------------------------------------
     void Execute( aiScene* pScene);
 
-    static const int s_Type = 3;
-    virtual int get_Type() const { return s_Type; }
-
 protected:
 
     // -------------------------------------------------------------------
@@ -142,7 +139,7 @@ public:
     // -------------------------------------------------------------------
     void Execute( aiScene* pScene);
 
-    static const int s_Type = 2;
+    static const int s_Type = 0x97643;
     virtual int get_Type() const { return s_Type; }
 
 protected:
@@ -169,7 +166,7 @@ public:
     // -------------------------------------------------------------------
     void Execute( aiScene* pScene);
 
-    static const int s_Type = 1;
+    static const int s_Type = 0x2134E;
     virtual int get_Type() const { return s_Type; }
 
 protected:
