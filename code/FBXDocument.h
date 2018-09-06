@@ -94,7 +94,7 @@ public:
     template <typename T>
     const T* Get(bool dieOnError = false) {
         const Object* const ob = Get(dieOnError);
-        return ob ? dynamic_cast<const T*>(ob) : NULL;
+        return ob ? DynamicCast<const T*>(ob) : NULL;
     }
 
     uint64_t ID() const {
@@ -154,13 +154,19 @@ public:
         return id;
     }
 
+    virtual int get_Type() const = 0;
+    
 protected:
     const Element& element;
     const std::string name;
     const uint64_t id;
 };
 
-
+template <class T>
+T* DynamicCast(Object* p)
+{
+    return (T::s_Type == p->get_Type()) ? static_cast<T*>(p) : NULL;
+}
 
 /** DOM class for generic FBX NoteAttribute blocks. NoteAttribute's just hold a property table,
  *  fixed members are added by deriving classes. */
@@ -174,6 +180,9 @@ public:
         ai_assert(props.get());
         return *props.get();
     }
+
+    static const int s_Type = 1;
+    virtual int get_Type() const { return s_Type; }
 
 private:
     std::shared_ptr<const PropertyTable> props;
@@ -198,6 +207,9 @@ public:
     const std::string& CameraIndexName() const {
         return cameraIndexName;
     }
+
+    static const int s_Type = 2;
+    virtual int get_Type() const { return s_Type; }
 
 private:
     int cameraId;
@@ -232,6 +244,9 @@ public:
     Camera(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual  ~Camera();
 
+    static const int s_Type = 3;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     fbx_simple_property(Position, aiVector3D, aiVector3D(0,0,0))
     fbx_simple_property(UpVector, aiVector3D, aiVector3D(0,1,0))
@@ -259,6 +274,9 @@ class Null : public NodeAttribute
 public:
     Null(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual ~Null();
+
+    static const int s_Type = 4;
+    virtual int get_Type() const { return s_Type; }
 };
 
 
@@ -268,6 +286,8 @@ class LimbNode : public NodeAttribute
 public:
     LimbNode(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual ~LimbNode();
+    static const int s_Type = 5;
+    virtual int get_Type() const { return s_Type; }
 };
 
 
@@ -277,6 +297,9 @@ class Light : public NodeAttribute
 public:
     Light(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual ~Light();
+
+    static const int s_Type = 6;
+    virtual int get_Type() const { return s_Type; }
 
 public:
     enum Type
@@ -364,6 +387,9 @@ public:
     Model(uint64_t id, const Element& element, const Document& doc, const std::string& name);
 
     virtual ~Model();
+
+    static const int s_Type = 7;
+    virtual int get_Type() const { return s_Type; }
 
     fbx_simple_property(QuaternionInterpolate, int, 0)
 
@@ -492,6 +518,9 @@ public:
     Texture(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual ~Texture();
 
+    static const int s_Type = 8;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     const std::string& Type() const {
         return type;
@@ -552,6 +581,9 @@ class LayeredTexture : public Object
 public:
     LayeredTexture(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual ~LayeredTexture();
+
+    static const int s_Type = 9;
+    virtual int get_Type() const { return s_Type; }
 
     //Can only be called after construction of the layered texture object due to construction flag.
     void fillTexture(const Document& doc);
@@ -625,6 +657,9 @@ public:
     Video(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual ~Video();
 
+    static const int s_Type = 10;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     const std::string& Type() const {
         return type;
@@ -675,6 +710,9 @@ public:
     Material(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual ~Material();
 
+    static const int s_Type = 11;
+    virtual int get_Type() const { return s_Type; }
+
     const std::string& GetShadingModel() const {
         return shading;
     }
@@ -715,6 +753,8 @@ public:
     AnimationCurve(uint64_t id, const Element& element, const std::string& name, const Document& doc);
     virtual ~AnimationCurve();
 
+    static const int s_Type = 12;
+    virtual int get_Type() const { return s_Type; }
     /** get list of keyframe positions (time).
      *  Invariant: |GetKeys()| > 0 */
     const KeyTimeList& GetKeys() const {
@@ -760,6 +800,9 @@ public:
 
     virtual ~AnimationCurveNode();
 
+    static const int s_Type = 13;
+    virtual int get_Type() const { return s_Type; }
+
     const PropertyTable& Props() const {
         ai_assert(props.get());
         return *props.get();
@@ -776,11 +819,11 @@ public:
     }
 
     const Model* TargetAsModel() const {
-        return dynamic_cast<const Model*>(target);
+        return DynamicCast<const Model*>(target);
     }
 
     const NodeAttribute* TargetAsNodeAttribute() const {
-        return dynamic_cast<const NodeAttribute*>(target);
+        return DynamicCast<const NodeAttribute*>(target);
     }
 
     /** Property of Target() that is being animated*/
@@ -806,6 +849,9 @@ public:
     AnimationLayer(uint64_t id, const Element& element, const std::string& name, const Document& doc);
     virtual ~AnimationLayer();
 
+    static const int s_Type = 14;
+    virtual int get_Type() const { return s_Type; }
+
     const PropertyTable& Props() const {
         ai_assert(props.get());
         return *props.get();
@@ -829,6 +875,9 @@ class AnimationStack : public Object
 public:
     AnimationStack(uint64_t id, const Element& element, const std::string& name, const Document& doc);
     virtual ~AnimationStack();
+
+    static const int s_Type = 15;
+    virtual int get_Type() const { return s_Type; }
 
     fbx_simple_property(LocalStart, int64_t, 0L)
     fbx_simple_property(LocalStop, int64_t, 0L)
@@ -857,6 +906,9 @@ public:
     Deformer(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual ~Deformer();
 
+    static const int s_Type = 16;
+    virtual int get_Type() const { return s_Type; }
+
     const PropertyTable& Props() const {
         ai_assert(props.get());
         return *props.get();
@@ -875,6 +927,9 @@ class Cluster : public Deformer
 public:
     Cluster(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual ~Cluster();
+
+    static const int s_Type = 17;
+    virtual int get_Type() const { return s_Type; }
 
     /** get the list of deformer weights associated with this cluster.
      *  Use #GetIndices() to get the associated vertices. Both arrays
@@ -919,6 +974,9 @@ class Skin : public Deformer
 public:
     Skin(uint64_t id, const Element& element, const Document& doc, const std::string& name);
     virtual ~Skin();
+
+    static const int s_Type = 18;
+    virtual int get_Type() const { return s_Type; }
 
     float DeformAccuracy() const {
         return accuracy;

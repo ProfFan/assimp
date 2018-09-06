@@ -56,6 +56,14 @@ namespace FBX {
 // Forward declarations
 class Element;
 
+class Property;
+
+template <class T>
+T* DynamicCast(Property* p)
+{
+    return (T::s_Type == p->get_Type()) ? static_cast<T*>(p) : NULL;
+}
+
 /** Represents a dynamic property. Type info added by deriving classes,
  *  see #TypedProperty.
  Example:
@@ -69,13 +77,15 @@ protected:
 
 public:
     virtual ~Property();
-
+    virtual int get_Type() const = 0;
 public:
     template <typename T>
     const T* As() const {
-        return dynamic_cast<const T*>(this);
+        return DynamicCast<const T*>(this);
     }
 };
+
+
 
 template<typename T>
 class TypedProperty : public Property {
@@ -88,7 +98,8 @@ public:
     const T& Value() const {
         return value;
     }
-
+    static const int s_Type = 1;
+    virtual int get_Type() const { return s_Type; }
 private:
     T value;
 };

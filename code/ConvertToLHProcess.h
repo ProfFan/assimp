@@ -85,6 +85,9 @@ public:
     // -------------------------------------------------------------------
     void Execute( aiScene* pScene);
 
+    static const int s_Type = 3;
+    virtual int get_Type() const { return s_Type; }
+
 protected:
 
     // -------------------------------------------------------------------
@@ -136,6 +139,9 @@ public:
     // -------------------------------------------------------------------
     void Execute( aiScene* pScene);
 
+    static const int s_Type = 2;
+    virtual int get_Type() const { return s_Type; }
+
 protected:
     void ProcessMesh( aiMesh* pMesh);
 };
@@ -159,6 +165,9 @@ public:
 
     // -------------------------------------------------------------------
     void Execute( aiScene* pScene);
+
+    static const int s_Type = 1;
+    virtual int get_Type() const { return s_Type; }
 
 protected:
     void ProcessMesh( aiMesh* pMesh);

@@ -92,7 +92,7 @@ FBXConverter::FBXConverter( aiScene* out, const Document& doc )
                 continue;
             }
 
-            const Material* mat = dynamic_cast<const Material*>( ob );
+            const Material* mat = DynamicCast<const Material*>( ob );
             if ( mat ) {
 
                 if ( materials_converted.find( mat ) == materials_converted.end() ) {
@@ -154,7 +154,7 @@ void FBXConverter::ConvertNodes( uint64_t id, aiNode& parent, const aiMatrix4x4&
                 continue;
             }
 
-            const Model* const model = dynamic_cast<const Model*>( object );
+            const Model* const model = DynamicCast<const Model*>( object );
 
             if ( nullptr != model ) {
                 nodes_chain.clear();
@@ -285,7 +285,7 @@ void FBXConverter::ConvertNodes( uint64_t id, aiNode& parent, const aiMatrix4x4&
 void FBXConverter::ConvertLights( const Model& model, const std::string &orig_name ) {
     const std::vector<const NodeAttribute*>& node_attrs = model.GetAttributes();
     for( const NodeAttribute* attr : node_attrs ) {
-        const Light* const light = dynamic_cast<const Light*>( attr );
+        const Light* const light = DynamicCast<const Light*>( attr );
         if ( light ) {
             ConvertLight( *light, orig_name );
         }
@@ -295,7 +295,7 @@ void FBXConverter::ConvertLights( const Model& model, const std::string &orig_na
 void FBXConverter::ConvertCameras( const Model& model, const std::string &orig_name ) {
     const std::vector<const NodeAttribute*>& node_attrs = model.GetAttributes();
     for( const NodeAttribute* attr : node_attrs ) {
-        const Camera* const cam = dynamic_cast<const Camera*>( attr );
+        const Camera* const cam = DynamicCast<const Camera*>( attr );
         if ( cam ) {
             ConvertCamera( *cam, orig_name );
         }
@@ -859,7 +859,7 @@ void FBXConverter::ConvertModel( const Model& model, aiNode& nd, const aiMatrix4
 
     for( const Geometry* geo : geos ) {
 
-        const MeshGeometry* const mesh = dynamic_cast< const MeshGeometry* >( geo );
+        const MeshGeometry* const mesh = DynamicCast< const MeshGeometry* >( geo );
         if ( mesh ) {
             const std::vector<unsigned int>& indices = ConvertMesh( *mesh, model, node_global_transform, nd);
             std::copy( indices.begin(), indices.end(), std::back_inserter( meshes ) );
@@ -1603,7 +1603,7 @@ void FBXConverter::TrySetTextureProperties( aiMaterial* out_mat, const TextureMa
                 if ( !mesh )
                 {
                     for( const MeshMap::value_type& v : meshes_converted ) {
-                        const MeshGeometry* const mesh = dynamic_cast<const MeshGeometry*> ( v.first );
+                        const MeshGeometry* const mesh = DynamicCast<const MeshGeometry*> ( v.first );
                         if ( !mesh ) {
                             continue;
                         }
@@ -1726,7 +1726,7 @@ void FBXConverter::TrySetTextureProperties( aiMaterial* out_mat, const LayeredTe
                 if ( !mesh )
                 {
                     for( const MeshMap::value_type& v : meshes_converted ) {
-                        const MeshGeometry* const mesh = dynamic_cast<const MeshGeometry*> ( v.first );
+                        const MeshGeometry* const mesh = DynamicCast<const MeshGeometry*> ( v.first );
                         if ( !mesh ) {
                             continue;
                         }
@@ -2088,7 +2088,7 @@ void FBXConverter::ConvertAnimationStack( const AnimationStack& st )
         for( const AnimationCurveNode* node : nodes ) {
             ai_assert( node );
 
-            const Model* const model = dynamic_cast<const Model*>( node->Target() );
+            const Model* const model = DynamicCast<const Model*>( node->Target() );
             // this can happen - it could also be a NodeAttribute (i.e. for camera animations)
             if ( !model ) {
                 continue;

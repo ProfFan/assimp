@@ -113,9 +113,9 @@ Material::Material(uint64_t id, const Element& element, const Document& doc, con
             continue;
         }
 
-        const Texture* const tex = dynamic_cast<const Texture*>(ob);
+        const Texture* const tex = DynamicCast<const Texture*>(ob);
         if(!tex) {
-            const LayeredTexture* const layeredTexture = dynamic_cast<const LayeredTexture*>(ob);
+            const LayeredTexture* const layeredTexture = DynamicCast<const LayeredTexture*>(ob);
             if(!layeredTexture) {
                 DOMWarning("source object for texture link is not a texture or layered texture, ignoring",&element);
                 continue;
@@ -216,7 +216,7 @@ Texture::Texture(uint64_t id, const Element& element, const Document& doc, const
                 continue;
             }
 
-            const Video* const video = dynamic_cast<const Video*>(ob);
+            const Video* const video = DynamicCast<const Video*>(ob);
             if(video) {
                 media = video;
             }
@@ -269,7 +269,7 @@ void LayeredTexture::fillTexture(const Document& doc)
             continue;
         }
 
-        const Texture* const tex = dynamic_cast<const Texture*>(ob);
+        const Texture* const tex = DynamicCast<const Texture*>(ob);
 
         textures.push_back(tex);
     }

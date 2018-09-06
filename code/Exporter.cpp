@@ -408,10 +408,10 @@ aiReturn Exporter::Export( const aiScene* pScene, const char* pFormatId, const c
                         BaseProcess* const p = pimpl->mPostProcessingSteps[a];
 
                         if (p->IsActive(pp)
-                            && !dynamic_cast<FlipUVsProcess*>(p)
-                            && !dynamic_cast<FlipWindingOrderProcess*>(p)
-                            && !dynamic_cast<MakeLeftHandedProcess*>(p)) {
-                            if (dynamic_cast<PretransformVertices*>(p) && exportPointCloud) {
+                            && !DynamicCast<FlipUVsProcess*>(p)
+                            && !DynamicCast<FlipWindingOrderProcess*>(p)
+                            && !DynamicCast<MakeLeftHandedProcess*>(p)) {
+                            if (DynamicCast<PretransformVertices*>(p) && exportPointCloud) {
                                 continue;
                             }
                             p->Execute(scenecopy.get());
