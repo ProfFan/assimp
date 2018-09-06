@@ -289,11 +289,6 @@ protected:
     ProgressHandler* progress;
 };
 
-template <class T>
-T* DynamicCast(BaseProcess* p)
-{
-    return (T::s_Type == p->get_Type()) ? static_cast<T*>(p) : NULL;
-}
 
 } // end of namespace Assimp
 

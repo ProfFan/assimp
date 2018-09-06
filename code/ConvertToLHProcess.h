@@ -174,6 +174,12 @@ protected:
     void ProcessMaterial( aiMaterial* mat);
 };
 
+template <class T>
+T* DynamicCast(BaseProcess* p)
+{
+    return (T::s_Type == p->get_Type()) ? static_cast<T*>(p) : NULL;
+}
+
 } // end of namespace Assimp
 
 #endif // AI_CONVERTTOLHPROCESS_H_INC
