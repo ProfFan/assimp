@@ -68,6 +68,9 @@ public:
     SplitByBoneCountProcess();
     ~SplitByBoneCountProcess();
 
+    static const int s_Type = 0x3977;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     /** Returns whether the processing step is present in the given flag.
     * @param pFlags The processing flags the importer was called with. A

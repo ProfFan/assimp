@@ -66,6 +66,9 @@ public:
     PretransformVertices ();
     ~PretransformVertices ();
 
+    static const int s_Type = 0x3E64;
+    virtual int get_Type() const { return s_Type; }
+
     // -------------------------------------------------------------------
     // Check whether step is active
     bool IsActive( unsigned int pFlags) const;

@@ -66,6 +66,9 @@ public:
     FindInvalidDataProcess();
     ~FindInvalidDataProcess();
 
+    static const int s_Type = 0x87CE;
+    virtual int get_Type() const { return s_Type; }
+
 public:
 
     // -------------------------------------------------------------------

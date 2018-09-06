@@ -66,6 +66,9 @@ public:
     CalcTangentsProcess();
     ~CalcTangentsProcess();
 
+    static const int s_Type = 0xAEDA;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     // -------------------------------------------------------------------
     /** Returns whether the processing step is present in the given flag.

@@ -71,6 +71,9 @@ public:
     OptimizeGraphProcess();
     ~OptimizeGraphProcess();
 
+    static const int s_Type = 0xE376;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     // -------------------------------------------------------------------
     bool IsActive( unsigned int pFlags) const;

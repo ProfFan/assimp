@@ -71,6 +71,8 @@ public:
     OptimizeMeshesProcess();
     ~OptimizeMeshesProcess();
 
+    static const int s_Type = 0xAECE;
+    virtual int get_Type() const { return s_Type; }
 
     /** @brief Internal utility to store additional mesh info
      */

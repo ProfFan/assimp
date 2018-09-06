@@ -74,6 +74,9 @@ public:
     ValidateDSProcess();
     ~ValidateDSProcess();
 
+    static const int s_Type = 0xDE34C;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     // -------------------------------------------------------------------
     bool IsActive( unsigned int pFlags) const;

@@ -66,6 +66,9 @@ public:
     /// The class destructor.
     ~RemoveRedundantMatsProcess();
 
+    static const int s_Type = 0xBA39;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     // -------------------------------------------------------------------
     // Check whether step is active

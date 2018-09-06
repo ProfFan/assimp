@@ -64,6 +64,9 @@ public:
     ComputeUVMappingProcess();
     ~ComputeUVMappingProcess();
 
+    static const int s_Type = 0x34DE;
+    virtual int get_Type() const { return s_Type; }
+
 public:
 
     // -------------------------------------------------------------------

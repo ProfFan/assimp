@@ -79,6 +79,9 @@ public:
     MakeLeftHandedProcess();
     ~MakeLeftHandedProcess();
 
+    static const int s_Type = 0x85AE;
+    virtual int get_Type() const { return s_Type; }
+
     // -------------------------------------------------------------------
     bool IsActive( unsigned int pFlags) const;
 

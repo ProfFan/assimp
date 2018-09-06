@@ -65,6 +65,9 @@ public:
     /// The class destructor.
     virtual ~EmbedTexturesProcess();
 
+    static const int s_Type = 0x3976;
+    virtual int get_Type() const { return s_Type; }
+
     /// Overwritten, @see BaseProcess
     virtual bool IsActive(unsigned int pFlags) const;
 

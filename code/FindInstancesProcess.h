@@ -114,6 +114,9 @@ public:
     FindInstancesProcess();
     ~FindInstancesProcess();
 
+    static const int s_Type = 0x1DA9;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     // -------------------------------------------------------------------
     // Check whether step is active in given flags combination

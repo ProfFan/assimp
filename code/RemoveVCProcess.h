@@ -63,6 +63,9 @@ public:
     /// The class destructor.
     ~RemoveVCProcess();
 
+    static const int s_Type = 0x81DE;
+    virtual int get_Type() const { return s_Type; }
+
     // -------------------------------------------------------------------
     /** Returns whether the processing step is present in the given flag field.
     * @param pFlags The processing flags the importer was called with. A bitwise

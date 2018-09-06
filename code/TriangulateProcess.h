@@ -66,6 +66,8 @@ public:
     TriangulateProcess();
     ~TriangulateProcess();
 
+    static const int s_Type = 0xAAEE;
+    virtual int get_Type() const { return s_Type; }
 public:
     // -------------------------------------------------------------------
     /** Returns whether the processing step is present in the given flag field.

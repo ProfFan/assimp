@@ -67,6 +67,9 @@ public:
     ImproveCacheLocalityProcess();
     ~ImproveCacheLocalityProcess();
 
+    static const int s_Type = 0xCACE;
+    virtual int get_Type() const { return s_Type; }
+
 public:
 
     // -------------------------------------------------------------------

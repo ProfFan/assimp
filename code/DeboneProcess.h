@@ -73,6 +73,9 @@ public:
     DeboneProcess();
     ~DeboneProcess();
 
+    static const int s_Type = 0x23CA;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     // -------------------------------------------------------------------
     /** Returns whether the processing step is present in the given flag.

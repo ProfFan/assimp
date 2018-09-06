@@ -201,6 +201,8 @@ public:
     TextureTransformStep();
     ~TextureTransformStep();
 
+    static const int s_Type = 0xEEAE;
+    virtual int get_Type() const { return s_Type; }
 public:
 
     // -------------------------------------------------------------------

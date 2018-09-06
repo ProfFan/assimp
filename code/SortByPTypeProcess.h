@@ -64,6 +64,9 @@ public:
     SortByPTypeProcess();
     ~SortByPTypeProcess();
 
+    static const int s_Type = 0xBECE;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     // -------------------------------------------------------------------
     bool IsActive( unsigned int pFlags) const;

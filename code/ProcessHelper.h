@@ -339,6 +339,9 @@ aiMesh* MakeSubmesh(const aiMesh *superMesh, const std::vector<unsigned int> &su
 // all steps which use it to speedup its computations.
 class ComputeSpatialSortProcess : public BaseProcess
 {
+    static const int s_Type = 0xCE96;
+    virtual int get_Type() const { return s_Type; }
+
     bool IsActive( unsigned int pFlags) const
     {
         return NULL != shared && 0 != (pFlags & (aiProcess_CalcTangentSpace |
@@ -367,7 +370,10 @@ class ComputeSpatialSortProcess : public BaseProcess
 // -------------------------------------------------------------------------------
 // ... and the same again to cleanup the whole stuff
 class DestroySpatialSortProcess : public BaseProcess
-{
+{   
+    static const int s_Type = 0x2490;
+    virtual int get_Type() const { return s_Type; }
+
     bool IsActive( unsigned int pFlags) const
     {
         return NULL != shared && 0 != (pFlags & (aiProcess_CalcTangentSpace |

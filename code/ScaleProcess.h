@@ -62,6 +62,9 @@ public:
     /// The class destructor.
     virtual ~ScaleProcess();
 
+    static const int s_Type = 0x7E83;
+    virtual int get_Type() const { return s_Type; }
+
     /// Will set the scale manually.
     void setScale( ai_real scale );
 

@@ -93,6 +93,9 @@ public:
     SplitLargeMeshesProcess_Triangle();
     ~SplitLargeMeshesProcess_Triangle();
 
+    static const int s_Type = 0x32E42;
+    virtual int get_Type() const { return s_Type; }
+
 public:
     // -------------------------------------------------------------------
     /** Returns whether the processing step is present in the given flag.
@@ -158,6 +161,9 @@ public:
 
     SplitLargeMeshesProcess_Vertex();
     ~SplitLargeMeshesProcess_Vertex();
+
+    static const int s_Type = 0x346E2;
+    virtual int get_Type() const { return s_Type; }
 
 public:
     // -------------------------------------------------------------------

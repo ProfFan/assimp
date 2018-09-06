@@ -73,6 +73,9 @@ public:
     MakeVerboseFormatProcess();
     ~MakeVerboseFormatProcess();
 
+    static const int s_Type = 0x3845;
+    virtual int get_Type() const { return s_Type; }
+
 public:
 
     // -------------------------------------------------------------------
